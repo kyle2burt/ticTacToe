@@ -1,7 +1,32 @@
+const DisplayController = (function () {
+    gameArea = document.querySelector("#game");
+
+
+    function drawBoard(board) {
+        gameArea.replaceChildren();
+        board.forEach((row, i) => {
+            displayRow = document.createElement("div")
+            row.forEach((value, j) => {
+                boardSpace = document.createElement("h1")
+                boardSpace.textContent = board[itr][j];
+                displayRow.appendChild(boardSpace);
+            })
+            gameArea.appendChild(displayRow);
+        })
+
+    }
+
+    return {
+        drawBoard
+    }
+})();
+
 const GameBoard = (function() {
     const board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    const display = DisplayController;
 
     const printBoard = () => {
+        display.drawBoard(board)
         board.forEach((row) => {
             console.log(row);
         });
