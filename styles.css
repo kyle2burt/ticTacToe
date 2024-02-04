@@ -1,9 +1,49 @@
-body {
-    background-color: antiquewhite;
+:root {
+    --black: #000000;
+    --darkblue: #0B60B0;
+    --lightblue: #40A2D8;
+    --white: #F0EDCF;
 }
-
-.row {
+/* Page Objects */
+body {
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 1fr 50px;
+    align-items: center;
+    background-color: var(--lightblue);
+}
+header {
+    grid-column: 1 / 4;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    background-color: var(--darkblue);
+    padding: 20px;
+}
+#game {
+    grid-column: 2 / 3;
+    align-self: center;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    aspect-ratio: 1;
+}
+footer {
+    grid-column: 1 / 4;
+    grid-row: 3 / 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    background-color: var(--darkblue);
+    padding: 10px;
+}
+/* Game Objects */
+.row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .row > h1 {
