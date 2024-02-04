@@ -8,11 +8,13 @@
 body {
     margin: 0;
     height: 100vh;
+    overflow: hidden;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 100px 1fr 50px;
     align-items: center;
     background-color: var(--lightblue);
+    font-family: sans-serif;
 }
 header {
     grid-column: 1 / 4;
@@ -46,11 +48,13 @@ footer {
     grid-template-columns: repeat(3, 1fr);
 }
 
-.row > h1 {
+#game > .row > h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: black solid 2px; 
     margin: 0;
     padding: 20px;
-}
-
-#game > .row > h1 {
-    border: black solid 2px; 
+    font-size: 5em;
+    font-weight: 100;
 }
