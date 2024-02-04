@@ -8,7 +8,7 @@ const DisplayController = (function () {
             displayRow = document.createElement("div")
             row.forEach((value, j) => {
                 boardSpace = document.createElement("h1")
-                boardSpace.textContent = board[itr][j];
+                boardSpace.textContent = board[i][j];
                 displayRow.appendChild(boardSpace);
             })
             gameArea.appendChild(displayRow);
