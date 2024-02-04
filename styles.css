@@ -1,3 +1,16 @@
 body {
     background-color: antiquewhite;
 }
+
+.row {
+    display: flex;
+}
+
+.row > h1 {
+    margin: 0;
+    padding: 20px;
+}
+
+#game > .row > h1 {
+    border: black solid 2px; 
+}

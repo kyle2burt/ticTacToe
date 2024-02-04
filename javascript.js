@@ -1,23 +1,26 @@
+
+
 const DisplayController = (function () {
     gameArea = document.querySelector("#game");
-
 
     function drawBoard(board) {
         gameArea.replaceChildren();
         board.forEach((row, i) => {
             displayRow = document.createElement("div")
+            displayRow.classList.add("row", "row-"+i)
             row.forEach((value, j) => {
                 boardSpace = document.createElement("h1")
-                boardSpace.textContent = board[i][j];
+                boardSpace.textContent = value.name;
+                boardSpace.setAttribute("row", i)
+                boardSpace.setAttribute("col", j)
                 displayRow.appendChild(boardSpace);
             })
             gameArea.appendChild(displayRow);
         })
-
     }
 
     return {
-        drawBoard
+        drawBoard,
     }
 })();
 
@@ -37,13 +40,13 @@ const GameBoard = (function() {
 
         let rowTotal = 0;
         let colTotal = 0;
-        let diagTotal = board[0][0] + board[1][1] + board[2][2];
+        let diagTotal = board[0][0].token + board[1][1].token + board[2][2].token;
 
         board.forEach((row, itr) => {
             rowTotal = 0;
-            colTotal = board[0][itr] + board[1][itr] + board[2][itr];
+            colTotal = board[0][itr].token + board[1][itr].token + board[2][itr].token;
             row.forEach((value) => {
-                rowTotal = rowTotal + value;
+                rowTotal = rowTotal + value.token;
             });
             if (rowTotal == 3 || colTotal == 3 || diagTotal == 3) return winner = 'X';
             else if (rowTotal == -3 || colTotal == 3 || diagTotal == 3) return winner = 'O';
@@ -53,16 +56,20 @@ const GameBoard = (function() {
     }
 
     const move = (x, y, player) => {
-        if (board[x][y] != 0) return // invalid move
+        if (board[x][y] != 0) return -1; // invalid move
         board[x][y] = player;
     }
 
     const reset = () => {
+        // Reset board
         board.forEach((row, i) => {
             row.forEach((value, j) => {
-                board[itr][j] = 0;
+                board[i][j] = 0;
             })
         });
+
+        // Setup Board
+        printBoard();
     }
 
     return {
@@ -87,6 +94,7 @@ function createPlayer (playerName, playerToken) {
 
 let GameController = (function() {
     let board = GameBoard;
+    let display = DisplayController;
 
     const players = [
         playerX = createPlayer('X', 1),
@@ -102,21 +110,36 @@ let GameController = (function() {
     function reset() {
         activePlayer = players[0];
         board.reset();
+        bindEvents();
+    }
+
+    function bindEvents() {
+        boardSquares = document.querySelectorAll("#game > .row > h1");
+        boardSquares.forEach((square) => {
+            square.addEventListener("click", () => {
+                playRound(square.getAttribute("row"), square.getAttribute("col"))
+            });
+        });
     }
 
     function playRound(x, y) {
-        board.move(x, y, activePlayer.token)
-        board.printBoard();
-        if (board.checkWin()) {
-            console.log(`Player ${activePlayer.name} Wins!`)
+        if (board.move(x, y, activePlayer) == -1) {
+            console.log("invalid move");
         }
         else {
-            switchTurn();
-            console.log(`Player ${activePlayer.name} turn`);
+            board.printBoard();
+            if (board.checkWin()) {
+                console.log(`Player ${activePlayer.name} Wins!`)
+            }
+            else {
+                bindEvents();
+                switchTurn();
+                console.log(`Player ${activePlayer.name} turn`);
+            }
         }
     }
 
-    board.printBoard();
+    reset()
     console.log(`Player ${activePlayer.name} turn`);
 
     return {
