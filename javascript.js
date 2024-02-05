@@ -55,7 +55,8 @@ const GameBoard = (function() {
         let winner = false;
         let rowTotal = 0;
         let colTotal = 0;
-        let diagTotal = board[0][0].token + board[1][1].token + board[2][2].token;
+        let diagLRTotal = board[0][0].token + board[1][1].token + board[2][2].token;
+        let diagRLTotal = board[0][2].token + board[1][1].token + board[2][0].token;
 
         board.forEach((row, itr) => {
             rowTotal = 0;
@@ -63,8 +64,8 @@ const GameBoard = (function() {
             row.forEach((value) => {
                 rowTotal = rowTotal + value.token;
             });
-            if (rowTotal == 3 || colTotal == 3 || diagTotal == 3) return winner = 'X';
-            else if (rowTotal == -3 || colTotal == 3 || diagTotal == 3) return winner = 'O';
+            if (rowTotal == 3 || colTotal == 3 || diagLRTotal == 3 || diagRLTotal == 3) return winner = 'X';
+            else if (rowTotal == -3 || colTotal == -3 || diagLRTotal == -3 || diagRLTotal == -3) return winner = 'O';
         });
         return winner;
     }
