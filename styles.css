@@ -25,6 +25,36 @@ header {
     background-color: var(--darkblue);
     padding: 20px;
 }
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--white);
+    background-color: var(--darkblue);
+    padding-bottom: 40px;
+    border: none;
+    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+}
+.menu div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+}
+.menu button {
+    background-color: var(--lightblue);
+    border: none;
+    border-radius: 5px;
+}
+.start {
+    height: 50px;
+}
+.options {
+    height: 25px;
+}
 #game {
     grid-column: 2 / 3;
     align-self: center;
